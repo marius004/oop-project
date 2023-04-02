@@ -6,14 +6,6 @@
 Airline::Airline(std::string name)
     : name(std::move(name)) {}
 
-[[maybe_unused]] const std::string &Airline::getName() const {
-    return name;
-}
-
-[[maybe_unused]] const std::vector<Aircraft> &Airline::getFleet() const {
-    return fleet;
-}
-
 std::ostream &operator<<(std::ostream &os, const Airline &airline) {
     os << "Airline{" << "name: " << airline.name;
 
@@ -75,18 +67,6 @@ bool Airline::addFlightPassenger(const Flight &flight, const Passenger &passenge
         return false;
 
     return flightPtr->addPassenger(passenger);
-}
-
-[[maybe_unused]] int Airline::addFlightPassengers(const Flight &flight, const std::vector<Passenger> &passengers) {
-    int counter = 0;
-    for (const auto& passenger : passengers)
-        counter += addFlightPassenger(flight, passenger);
-
-    return counter;
-}
-
-[[maybe_unused]] bool Airline::containsFlight(const Flight &flight) {
-    return std::find(this->flights.begin(), this->flights.end(), flight) != this->flights.end();
 }
 
 std::vector<Flight> Airline::getFlights(time_t time) const {

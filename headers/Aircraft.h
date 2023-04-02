@@ -18,19 +18,10 @@ public:
     Aircraft(std::string manufacturer, std::string model, int year, int capacity, time_t lastRevision);
 
     [[maybe_unused]] [[nodiscard]]
-    const std::string &getManufacturer() const;
-
-    [[maybe_unused]] [[nodiscard]]
-    const std::string &getModel() const;
-
-    [[maybe_unused]] [[nodiscard]]
     int getYear() const;
 
     [[nodiscard]]
     int getCapacity() const;
-
-    [[maybe_unused]] [[nodiscard]]
-    time_t getLastRevision() const;
 
     void maintenance(time_t time);
 

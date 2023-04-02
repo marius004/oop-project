@@ -16,15 +16,6 @@ private:
 public:
     Passenger(std::string firstName, std::string lastName, std::string id, Address address);
 
-    [[maybe_unused]] [[nodiscard]]
-    const std::string &getFirstName() const;
-
-    [[maybe_unused]] [[nodiscard]]
-    const std::string &getLastName() const;
-
-    [[maybe_unused]] [[nodiscard]]
-    const std::string &getId() const;
-
     bool operator==(const Passenger &rhs) const;
 
     bool operator!=(const Passenger &rhs) const;

@@ -9,13 +9,7 @@ Aircraft::Aircraft(std::string manufacturer, std::string model, int year, int ca
         : manufacturer(std::move(manufacturer)), model(std::move(model)),
           year(year), capacity(capacity), lastRevision(lastRevision) {}
 
-[[maybe_unused]] const std::string &Aircraft::getManufacturer() const {
-    return manufacturer;
-}
 
-[[maybe_unused]] const std::string &Aircraft::getModel() const {
-    return model;
-}
 
 [[maybe_unused]] int Aircraft::getYear() const {
     return year;
@@ -23,10 +17,6 @@ Aircraft::Aircraft(std::string manufacturer, std::string model, int year, int ca
 
 int Aircraft::getCapacity() const {
     return capacity;
-}
-
-[[maybe_unused]] time_t Aircraft::getLastRevision() const {
-    return lastRevision;
 }
 
 std::ostream &operator<<(std::ostream &os, const Aircraft &aircraft) {

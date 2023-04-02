@@ -16,20 +16,11 @@ private:
 
     bool containsAircraft(const Aircraft& aircraft);
 
-    [[maybe_unused]]
-    bool containsFlight(const Flight& flight);
-
 public:
     explicit Airline(std::string name);
 
     [[nodiscard]]
     const std::vector<Flight> &getFlights() const;
-
-    [[maybe_unused]] [[nodiscard]]
-    const std::string &getName() const;
-
-    [[maybe_unused]] [[nodiscard]]
-    const std::vector<Aircraft> &getFleet() const;
 
     void addAircraft(const Aircraft& aircraft);
 
@@ -39,9 +30,6 @@ public:
                    const Address& destination, const Aircraft& aircraft);
 
     bool addFlightPassenger(const Flight& flight, const Passenger& passenger);
-
-    [[maybe_unused]]
-    int addFlightPassengers(const Flight& flight, const std::vector<Passenger>& passengers);
 
     void updateFlightStatus(const Flight& flight, const FlightStatus& status);
 

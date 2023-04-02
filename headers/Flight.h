@@ -40,9 +40,6 @@ public:
     [[nodiscard]]
     const Aircraft &getAircraft() const;
 
-    [[maybe_unused]]
-    void setAircraft(const Aircraft &aircraft);
-
     [[nodiscard]]
     const std::string &getNumber() const;
 
@@ -53,19 +50,7 @@ public:
     const Address &getSource() const;
 
     [[nodiscard]]
-    const Address &getDestination() const;
-
-    [[maybe_unused]] [[nodiscard]]
-    const std::vector<Passenger> &getPassengers() const;
-
-    [[nodiscard]]
     bool addPassenger(const Passenger& passenger);
-
-    [[maybe_unused]] [[nodiscard]]
-    int addPassengers(const std::vector<Passenger>& passengers);
-
-    [[maybe_unused]]
-    void delay(std::time_t time);
 
     friend std::ostream &operator<<(std::ostream &os, const Flight &flight);
 

@@ -21,18 +21,10 @@ time_t Flight::getDuration() const {
     return source;
 }
 
-const Address &Flight::getDestination() const {
-    return destination;
-}
-
 std::ostream &operator<<(std::ostream &os, const Flight &flight) {
     os << "Flight{" << "number: " << flight.number << " duration: " << flight.duration << " source: " << flight.source
        << " destination: " << flight.destination << "}";
     return os;
-}
-
-[[maybe_unused]] const std::vector<Passenger> &Flight::getPassengers() const {
-    return passengers;
 }
 
 bool Flight::addPassenger(const Passenger &passenger) {
@@ -44,24 +36,8 @@ bool Flight::addPassenger(const Passenger &passenger) {
     return true;
 }
 
-[[maybe_unused]] int Flight::addPassengers(const std::vector<Passenger> &passengersToAdd) {
-    int added = 0;
-    for (const auto& passenger : passengersToAdd)
-        added += this->addPassenger(passenger);
-
-    return added;
-}
-
-[[maybe_unused]] void Flight::delay(std::time_t time) {
-    this->start += time;
-}
-
 const Aircraft &Flight::getAircraft() const {
     return aircraft;
-}
-
-[[maybe_unused]] void Flight::setAircraft(const Aircraft &newAircraft) {
-    Flight::aircraft = newAircraft;
 }
 
 bool Flight::operator==(const Flight &rhs) const {
@@ -109,7 +85,7 @@ Flight &Flight::operator=(const Flight &other) {
         this->source = other.source;
         this->destination = other.destination;
         this->aircraft = other.aircraft;
-        this->start = other.status;
+        this->status = other.status;
         this->passengers = other.passengers;
     }
 
