@@ -80,7 +80,7 @@ endfunction()
 ###############################################################################
 
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
-add_executable(${PROJECT_NAME} src/main.cpp)
+add_executable(${PROJECT_NAME} main.cpp headers/Address.h src/Address.cpp headers/Passenger.h src/Passenger.cpp headers/Flight.h src/Flight.cpp headers/Aircraft.h src/Aircraft.cpp headers/Airline.h src/Airline.cpp headers/Utils.h src/Utils.cpp headers/FlightStatus.h)
 
 ###############################################################################
 
