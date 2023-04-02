@@ -17,9 +17,6 @@ private:
 public:
     Aircraft(std::string manufacturer, std::string model, int year, int capacity, time_t lastRevision);
 
-    [[maybe_unused]] [[nodiscard]]
-    int getYear() const;
-
     [[nodiscard]]
     int getCapacity() const;
 

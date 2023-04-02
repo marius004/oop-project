@@ -10,11 +10,6 @@ Aircraft::Aircraft(std::string manufacturer, std::string model, int year, int ca
           year(year), capacity(capacity), lastRevision(lastRevision) {}
 
 
-
-[[maybe_unused]] int Aircraft::getYear() const {
-    return year;
-}
-
 int Aircraft::getCapacity() const {
     return capacity;
 }

@@ -17,10 +17,6 @@ time_t Flight::getDuration() const {
     return duration;
 }
 
-[[maybe_unused]] const Address &Flight::getSource() const {
-    return source;
-}
-
 std::ostream &operator<<(std::ostream &os, const Flight &flight) {
     os << "Flight{" << "number: " << flight.number << " duration: " << flight.duration << " source: " << flight.source
        << " destination: " << flight.destination << "}";

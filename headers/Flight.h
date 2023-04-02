@@ -46,9 +46,6 @@ public:
     [[nodiscard]]
     time_t getDuration() const;
 
-    [[maybe_unused]] [[nodiscard]]
-    const Address &getSource() const;
-
     [[nodiscard]]
     bool addPassenger(const Passenger& passenger);
 
