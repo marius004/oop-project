@@ -1,4 +1,4 @@
 #include "../../headers/exceptions/NullArgumentException.h"
 
-NullArgumentException::NullArgumentException(std::string argumentName) :
+NullArgumentException::NullArgumentException(const std::string& argumentName) :
     InvalidArgumentException("Argument " + argumentName + " cannot be null") {}

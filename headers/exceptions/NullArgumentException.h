@@ -6,7 +6,7 @@
 
 class NullArgumentException : public InvalidArgumentException {
 public:
-    explicit NullArgumentException(std::string argumentName);
+    explicit NullArgumentException(const std::string& argumentName);
 };
 
 #endif //OOP_NULLARGUMENTEXCEPTION_H

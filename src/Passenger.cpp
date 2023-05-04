@@ -15,6 +15,7 @@ bool Passenger::operator==(const Passenger &rhs) const {
     return firstName == rhs.firstName &&
            lastName == rhs.lastName &&
            id == rhs.id &&
+           age == rhs.age &&
            address == rhs.address;
 }
 
