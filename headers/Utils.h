@@ -4,6 +4,7 @@
 #include "Passenger.h"
 #include "Aircraft.h"
 #include "Airline.h"
+#include "InfantPassenger.h"
 
 #include <vector>
 #include <string>
@@ -23,6 +24,7 @@ private:
     inline static const int AIRCRAFT_MIN_MANUFACTURING_YEAR = 1990;
     inline static const int AIRCRAFT_MIN_CAPACITY = 100;
     inline static const int AIRCRAFT_MIN_REVISION_YEAR = 5;
+    inline static const int MAX_INFANTS = 10;
 
     static std::string generateID();
 
@@ -36,6 +38,7 @@ public:
     static Aircraft generateAircraft();
     static Address generateAddress();
     static std::string generateFlightNumber();
+    static InfantPassenger generateInfant(std::shared_ptr<Passenger> caretaker);
     static Airline generateAirline(const std::string& name, int aircraftCount, int flightCount);
 };
 

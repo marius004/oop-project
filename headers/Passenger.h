@@ -11,10 +11,12 @@ private:
     std::string firstName;
     std::string lastName;
     std::string id;
+
+    unsigned int age;
     Address address;
 
 public:
-    Passenger(std::string firstName, std::string lastName, std::string id, Address address);
+    Passenger(std::string firstName, std::string lastName, std::string id, unsigned int age, Address address);
 
     bool operator==(const Passenger &rhs) const;
 

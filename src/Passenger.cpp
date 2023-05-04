@@ -1,8 +1,9 @@
 #include <utility>
 #include "../headers/Passenger.h"
 
-Passenger::Passenger(std::string firstName, std::string lastName, std::string id, Address address)
-    : firstName(std::move(firstName)), lastName(std::move(lastName)), id(std::move(id)), address(std::move(address)) {}
+Passenger::Passenger(std::string firstName, std::string lastName, std::string id, unsigned int age, Address address)
+    : firstName(std::move(firstName)), lastName(std::move(lastName)),
+    id(std::move(id)), age(age), address(std::move(address)) {}
 
 std::ostream &operator<<(std::ostream &os, const Passenger &passenger) {
     os << "Passenger{" << "firstName: " << passenger.firstName << " lastName: " << passenger.lastName << " id: "

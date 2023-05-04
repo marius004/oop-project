@@ -1,3 +1,4 @@
+#include "../headers/exceptions/InvalidArgumentException.h"
 #include "../headers/Utils.h"
 #include <cstdlib>
 #include <string>
@@ -18,8 +19,25 @@ Passenger Utils::generatePassenger() {
     auto city = Utils::cities.at(rand() % Utils::cities.size());
     auto country = Utils::countries.at(rand() % Utils::countries.size());
     auto id = Utils::generateID();
+    unsigned  int age = rand() % 90;
 
-    return {firstName, lastName, id, Address(street, city, country)};
+    return {firstName, lastName, id, age, Address(street, city, country)};
+}
+
+// todo: maybe a factory for this and get rid of bad practices(violating DRY)
+InfantPassenger Utils::generateInfant(std::shared_ptr<Passenger> caretaker) {
+    auto firstName = Utils::firstNames.at(rand() % Utils::firstNames.size());
+    auto lastName = Utils::lastNames.at(rand() % Utils::lastNames.size());
+    auto street = Utils::streets.at((rand() % Utils::streets.size()));
+    auto city = Utils::cities.at(rand() % Utils::cities.size());
+    auto country = Utils::countries.at(rand() % Utils::countries.size());
+    auto id = Utils::generateID();
+
+    // 5 is on purpose (to generate inconvenient data)
+    // (age should be less than or equal to 2 to be considered 'infant')
+    unsigned  int age = rand() % 5;
+
+    return {firstName, lastName, id, age, Address(street, city, country), caretaker};
 }
 
 Aircraft Utils::generateAircraft() {
@@ -73,9 +91,26 @@ Airline Utils::generateAirline(const std::string &name, int aircraftCount, int f
     }
 
     // add passengers to flights
-    for (auto& flight : airline.getFlights())
-        for (int i = 0;i < flight.getAircraft().getCapacity(); ++i)
-            airline.addFlightPassenger(flight, Utils::generatePassenger());
+    for (auto& flight : airline.getFlights()) {
+        int infantsCount = rand() % (Utils::MAX_INFANTS + 1);
+
+        std::vector<Passenger> passengers;
+        for (int i = 0; i < flight.getAircraft().getCapacity() - infantsCount; ++i) {
+            auto passenger = Utils::generatePassenger();
+            airline.addFlightPassenger(flight, passenger);
+            passengers.push_back(passenger);
+        }
+
+        for (int i = 0;i < infantsCount; ++i) {
+            try {
+                auto caretaker = std::make_shared<Passenger>(passengers[rand() % passengers.size()]);
+                auto infant = Utils::generateInfant(caretaker);
+                airline.addFlightPassenger(flight, infant);
+            } catch (const InvalidArgumentException& exception) {
+                std::cerr << exception.what() << "\n";
+            }
+        }
+    }
 
     return airline;
 }
