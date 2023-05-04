@@ -2,6 +2,7 @@
 #define OOP_INVALIDAGEARGUMENTEXCEPTION_H
 
 #include "InvalidArgumentException.h"
+#include <climits>
 
 class InvalidAgeArgumentException : public InvalidArgumentException {
 public:
