@@ -5,9 +5,6 @@
 #include <string>
 
 class NullArgumentException : public InvalidArgumentException {
-private:
-    std::string argumentName;
-
 public:
     explicit NullArgumentException(std::string argumentName);
 };
