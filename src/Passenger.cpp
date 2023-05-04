@@ -7,7 +7,7 @@ Passenger::Passenger(std::string firstName, std::string lastName, std::string id
 
 std::ostream &operator<<(std::ostream &os, const Passenger &passenger) {
     os << "Passenger{" << "firstName: " << passenger.firstName << " lastName: " << passenger.lastName << " id: "
-       << "" << passenger.id << " address: " << passenger.address << "}";
+       << passenger.id << " age: " << passenger.age << " address: " << passenger.address << "}";
     return os;
 }
 

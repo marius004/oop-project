@@ -12,7 +12,6 @@ private:
     std::string lastName;
     std::string id;
 
-    [[maybe_unused]]
     unsigned int age;
     Address address;
 
