@@ -18,6 +18,7 @@ public:
     virtual void prepareForLanding(const std::string& destination, std::unordered_set<std::shared_ptr<Passenger>> passengers) const = 0;
     virtual bool canFly() const = 0;
     virtual std::shared_ptr<AircraftCrewMember> clone() const = 0;
+    virtual ~AircraftCrewMember() = default;
 };
 
 #endif //OOP_AIRCRAFTCREWMEMBER_H
