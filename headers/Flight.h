@@ -42,11 +42,7 @@ public:
 
     [[nodiscard]] FlightStatus getStatus() const;
 
-    [[nodiscard]] std::shared_ptr<Pilot> getPilot() const;
-
     [[nodiscard]] const std::unordered_set<std::shared_ptr<Passenger>> &getPassengers() const;
-
-    void fastenPassengerSeatbelt(std::shared_ptr<Passenger>& passenger);
 
     [[nodiscard]] time_t getDuration() const;
 

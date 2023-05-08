@@ -94,12 +94,6 @@ const Address &Flight::getDestination() const {
     return destination;
 }
 
-void Flight::fastenPassengerSeatbelt(std::shared_ptr<Passenger>& passenger) {
-    this->passengers.erase(passenger);
-    passenger->setSeatbeltFastened(true);
-    this->passengers.insert(passenger);
-}
-
 void Flight::addCrewMember(const std::shared_ptr<AircraftCrewMember>& crewMember) {
     this->crew.insert(crewMember);
 }
@@ -114,16 +108,6 @@ time_t Flight::getEstimatedLanding() const {
 
 const std::unordered_set<std::shared_ptr<AircraftCrewMember>> &Flight::getCrew() const {
     return crew;
-}
-
-std::shared_ptr<Pilot> Flight::getPilot() const {
-    for (auto& member : crew) {
-        std::cout << "\n\n\n" << (std::dynamic_pointer_cast<Pilot>(member) == nullptr) << "\n\n\n";
-        if (auto pilot = std::dynamic_pointer_cast<Pilot>(member); pilot != nullptr)
-            return pilot;
-    }
-
-    throw NoFlightPilotException(number);
 }
 
 

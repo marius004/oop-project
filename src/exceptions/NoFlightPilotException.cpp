@@ -3,7 +3,7 @@
 #include "../../headers/exceptions/NoFlightPilotException.h"
 
 const char *NoFlightPilotException::what() const noexcept {
-    auto message = "No pilot for flight " + flightNumber;
+    auto message = std::string("No pilot for flight " + flightNumber);
     return message.c_str();
 }
 
