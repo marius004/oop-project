@@ -5,6 +5,7 @@ enum FlightStatus {
     SCHEDULED,
     FLYING,
     CANCELLED [[maybe_unused]],
+    LANDING,
     LANDED,
 };
 

@@ -1,8 +1,10 @@
 #include "../headers/exceptions/InvalidArgumentException.h"
+#include "../headers/FlightAttendant.h"
 #include "../headers/Utils.h"
 #include <cstdlib>
 #include <string>
 #include <vector>
+#include <memory>
 
 std::string Utils::generateID() {
     std::string id = "";
@@ -12,32 +14,30 @@ std::string Utils::generateID() {
     return  id;
 }
 
-Passenger Utils::generatePassenger() {
-    auto firstName = Utils::firstNames.at(rand() % Utils::firstNames.size());
-    auto lastName = Utils::lastNames.at(rand() % Utils::lastNames.size());
-    auto street = Utils::streets.at((rand() % Utils::streets.size()));
-    auto city = Utils::cities.at(rand() % Utils::cities.size());
-    auto country = Utils::countries.at(rand() % Utils::countries.size());
+std::shared_ptr<AircraftCrewMember> Utils::generateCrewMember(bool pilot, const std::string& license) {
     auto id = Utils::generateID();
-    unsigned  int age = rand() % 90;
+    auto name = Utils::lastNames.at(rand() % Utils::lastNames.size());
+    unsigned int salary = (pilot ? 100'000 : 60'000) + rand() % (pilot ? 40'000 : 20'000);
 
-    return {firstName, lastName, id, age, Address(street, city, country)};
+    if (pilot)
+        return std::make_shared<Pilot>(id, name, salary, license);
+
+    return std::make_shared<FlightAttendant>(id, name, salary);
 }
 
-// todo: maybe a factory for this and get rid of bad practices(violating DRY)
-InfantPassenger Utils::generateInfant(std::shared_ptr<Passenger> caretaker) {
+
+std::shared_ptr<Passenger> Utils::generatePassenger(bool infant, const std::shared_ptr<Passenger>& caretaker) {
     auto firstName = Utils::firstNames.at(rand() % Utils::firstNames.size());
     auto lastName = Utils::lastNames.at(rand() % Utils::lastNames.size());
     auto street = Utils::streets.at((rand() % Utils::streets.size()));
     auto city = Utils::cities.at(rand() % Utils::cities.size());
     auto country = Utils::countries.at(rand() % Utils::countries.size());
     auto id = Utils::generateID();
+    // added an age offset so that a normal passenger(not infant) should be at least 2yo
+    unsigned int age = (infant ? 0 : 2) + rand() % (infant ? 2 : 90);
 
-    // 5 is on purpose (to generate inconvenient data)
-    // (age should be less than or equal to 2 to be considered 'infant')
-    unsigned  int age = rand() % 5;
-
-    return {firstName, lastName, id, age, Address(street, city, country), caretaker};
+    return infant ? std::make_shared<InfantPassenger>(firstName, lastName, id, age, Address(street, city, country), caretaker)
+            : std::make_shared<Passenger>(firstName, lastName, id, age, Address(street, city, country));
 }
 
 Aircraft Utils::generateAircraft() {
@@ -90,11 +90,15 @@ Airline Utils::generateAirline(const std::string &name, int aircraftCount, int f
         time++;
     }
 
-    // add passengers to flights
+    // add passengers and crew to flights
     for (auto& flight : airline.getFlights()) {
-        int infantsCount = rand() % (Utils::MAX_INFANTS + 1);
+        airline.addFlightCrew(flight, Utils::generateCrewMember(true, "LICENSE 45678976"));
+        for (int i = 0; i < Utils::FLIGHT_ATTENDANTS;++i)
+            airline.addFlightCrew(flight, Utils::generateCrewMember());
 
-        std::vector<Passenger> passengers;
+        int infantsCount = rand() % (Utils::MAX_INFANTS + 1);
+        std::vector<std::shared_ptr<Passenger>> passengers;
+
         for (int i = 0; i < flight.getAircraft().getCapacity() - infantsCount; ++i) {
             auto passenger = Utils::generatePassenger();
             airline.addFlightPassenger(flight, passenger);
@@ -103,8 +107,8 @@ Airline Utils::generateAirline(const std::string &name, int aircraftCount, int f
 
         for (int i = 0;i < infantsCount; ++i) {
             try {
-                auto caretaker = std::make_shared<Passenger>(passengers[rand() % passengers.size()]);
-                auto infant = Utils::generateInfant(caretaker);
+                auto caretaker = passengers[rand() % passengers.size()];
+                auto infant = Utils::generatePassenger(true, caretaker);
                 airline.addFlightPassenger(flight, infant);
             } catch (const InvalidArgumentException& exception) {
                 std::cerr << exception.what() << "\n";

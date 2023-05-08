@@ -1,12 +1,13 @@
 #ifndef AIRLINE_H
 #define AIRLINE_H
 
+#include "AircraftCrewMember.h"
 #include "Aircraft.h"
 #include "Flight.h"
 
+#include <ostream>
 #include <string>
 #include <vector>
-#include <ostream>
 
 class Airline {
 private:
@@ -14,29 +15,32 @@ private:
     std::vector<Aircraft> fleet;
     std::vector<Flight> flights;
 
-    bool containsAircraft(const Aircraft& aircraft);
+    void cancelFlight(const Flight& flight, int reason);
+    std::shared_ptr<Pilot> getFlightPilot(const Flight& flight);
 
 public:
     explicit Airline(std::string name);
-
-    [[nodiscard]]
-    const std::vector<Flight> &getFlights() const;
 
     void addAircraft(const Aircraft& aircraft);
 
     void addAircraft(const std::vector<Aircraft>& aircraft);
 
-    bool addFlight(const std::string& number,time_t start, time_t duration, const Address& source,
+    void simulate(time_t time);
+
+    void addFlight(const std::string& number,time_t start, time_t duration, const Address& source,
                    const Address& destination, const Aircraft& aircraft);
 
-    bool addFlightPassenger(const Flight& flight, const Passenger& passenger);
+    void addFlightPassenger(const Flight& flight, std::shared_ptr<Passenger> passenger);
+
+    void addFlightCrew(const Flight& flight, std::shared_ptr<AircraftCrewMember> member);
 
     void updateFlightStatus(const Flight& flight, const FlightStatus& status);
 
     void maintainAircraft(const Aircraft& aircraft, time_t time);
 
-    [[nodiscard]]
-    std::vector<Flight> getFlights(time_t time) const;
+    [[nodiscard]] std::vector<Flight> getFlights(time_t time) const;
+
+    [[nodiscard]] const std::vector<Flight>& getFlights() const;
 
     bool operator==(const Airline &rhs) const;
 

@@ -1,6 +1,9 @@
-#include <utility>
+#include <algorithm>
 #include <iostream>
+#include <utility>
+#include <memory>
 
+#include "../headers/exceptions/NoFlightPilotException.h"
 #include "../headers/Flight.h"
 
 Flight::Flight(std::string number, time_t start, time_t duration, Address source, Address destination, Aircraft aircraft)
@@ -23,13 +26,8 @@ std::ostream &operator<<(std::ostream &os, const Flight &flight) {
     return os;
 }
 
-bool Flight::addPassenger(const Passenger &passenger) {
-    auto iterator = std::find(this->passengers.begin(), this->passengers.end(), passenger);
-    if (iterator != this->passengers.end())
-        return false;
-
-    this->passengers.emplace_back(passenger);
-    return true;
+void Flight::addPassenger(const std::shared_ptr<Passenger>& passenger) {
+    this->passengers.insert(passenger);
 }
 
 const Aircraft &Flight::getAircraft() const {
@@ -90,6 +88,42 @@ Flight &Flight::operator=(const Flight &other) {
 
 Flight::~Flight() {
     std::cout << "~Flight()\n";
+}
+
+const Address &Flight::getDestination() const {
+    return destination;
+}
+
+void Flight::fastenPassengerSeatbelt(std::shared_ptr<Passenger>& passenger) {
+    this->passengers.erase(passenger);
+    passenger->setSeatbeltFastened(true);
+    this->passengers.insert(passenger);
+}
+
+void Flight::addCrewMember(const std::shared_ptr<AircraftCrewMember>& crewMember) {
+    this->crew.insert(crewMember);
+}
+
+const std::unordered_set<std::shared_ptr<Passenger>> &Flight::getPassengers() const {
+    return passengers;
+}
+
+time_t Flight::getEstimatedLanding() const {
+    return this->start + this->duration;
+}
+
+const std::unordered_set<std::shared_ptr<AircraftCrewMember>> &Flight::getCrew() const {
+    return crew;
+}
+
+std::shared_ptr<Pilot> Flight::getPilot() const {
+    for (auto& member : crew) {
+        std::cout << "\n\n\n" << (std::dynamic_pointer_cast<Pilot>(member) == nullptr) << "\n\n\n";
+        if (auto pilot = std::dynamic_pointer_cast<Pilot>(member); pilot != nullptr)
+            return pilot;
+    }
+
+    throw NoFlightPilotException(number);
 }
 
 

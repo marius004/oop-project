@@ -25,6 +25,7 @@ private:
     inline static const int AIRCRAFT_MIN_CAPACITY = 100;
     inline static const int AIRCRAFT_MIN_REVISION_YEAR = 5;
     inline static const int MAX_INFANTS = 10;
+    inline static const int FLIGHT_ATTENDANTS = 4;
 
     static std::string generateID();
 
@@ -34,11 +35,12 @@ public:
     inline static const int MAX_FLIGHT_DURATION = 12;
     inline static const time_t MAX_TIME_FLYING_WITHOUT_REVISION = 5;
 
-    static Passenger generatePassenger();
+    static std::shared_ptr<Passenger> generatePassenger(bool infant = false, const std::shared_ptr<Passenger>& caretaker = nullptr);
+    static std::shared_ptr<AircraftCrewMember> generateCrewMember(bool pilot = true, const std::string& license = "");
+
     static Aircraft generateAircraft();
     static Address generateAddress();
     static std::string generateFlightNumber();
-    static InfantPassenger generateInfant(std::shared_ptr<Passenger> caretaker);
     static Airline generateAirline(const std::string& name, int aircraftCount, int flightCount);
 };
 

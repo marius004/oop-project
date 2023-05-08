@@ -18,3 +18,7 @@ std::ostream &operator<<(std::ostream &os, const Address &address) {
     os << "Address{" << "street: " << address.street << " city: " << address.city << " country: " << address.country << "}";
     return os;
 }
+
+const std::string &Address::getCity() const {
+    return city;
+}

@@ -14,13 +14,17 @@ private:
 
     unsigned int age;
     Address address;
-
+    bool seatbeltFastened;
 public:
     Passenger(std::string firstName, std::string lastName, std::string id, unsigned int age, Address address);
 
     bool operator==(const Passenger &rhs) const;
 
     bool operator!=(const Passenger &rhs) const;
+
+    bool isSeatbeltFastened() const;
+
+    void setSeatbeltFastened(bool fastened);
 
     friend std::ostream &operator<<(std::ostream &os, const Passenger &passenger);
 };
