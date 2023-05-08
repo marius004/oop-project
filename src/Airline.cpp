@@ -112,7 +112,14 @@ void Airline::simulate(time_t time) {
                 cancelFlight(flight, 2);
             }
 
+            for (const auto& crew : flight.getCrew())
+                crew->introduce(flight.getNumber(), flight.getDestination().getCity());
+
             updateFlightStatus(flight, FlightStatus::FLYING);
+        } else if (flight.getEstimatedLanding() - 1 == time) {
+            // prepare for landing
+            for (const auto& crew : flight.getCrew())
+                crew->prepareForLanding(flight.getDestination().getCity(), flight.getPassengers());
         }
 
         std::cout << "Flight " << flight.getNumber() << " is still flying\n";

@@ -4,8 +4,8 @@
 #include <sstream>
 #include <iostream>
 
-Pilot::Pilot(std::string id, std::string name, unsigned int salary, std::string license)
-    : AircraftCrewMember(std::move(id), std::move(name), salary), license(std::move(license)) {}
+Pilot::Pilot(const std::string& id, const std::string& name, unsigned int salary, std::string  license)
+    : AircraftCrewMember(id, name, salary), license(std::move(license)) {}
 
 std::string Pilot::getLandingMessage(const std::string& destination) const {
     std::stringstream ss;
@@ -26,7 +26,7 @@ std::shared_ptr<AircraftCrewMember> Pilot::clone() const {
     return std::make_shared<Pilot>(id, name, salary, license);
 }
 
-std::string Pilot::introduce(std::string flightNumber, std::string city) const {
+std::string Pilot::introduce(const std::string& flightNumber, const std::string& city) const {
     std::stringstream ss;
 
     ss << "Good afternoon, ladies and gentlemen.\n";
@@ -42,7 +42,7 @@ std::string Pilot::introduce(std::string flightNumber, std::string city) const {
     return ss.str();
 }
 
-void Pilot::prepareForLanding(std::string destination, std::unordered_set<std::shared_ptr<Passenger>> passengers) const {
+void Pilot::prepareForLanding(const std::string& destination, std::unordered_set<std::shared_ptr<Passenger>> passengers) const {
     std::cout << getLandingMessage(destination) << "\n";
 }
 

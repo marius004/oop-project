@@ -7,9 +7,9 @@ class FlightAttendant : public AircraftCrewMember {
 public:
     FlightAttendant(std::string id, std::string name, unsigned int salary);
 
-    [[nodiscard]] std::string introduce(std::string flightNumber, std::string city) const override;
+    [[nodiscard]] std::string introduce(const std::string& flightNumber, const std::string& city) const override;
 
-    void prepareForLanding(std::string destination,
+    void prepareForLanding(const std::string& destination,
                            std::unordered_set<std::shared_ptr<Passenger>> passengers) const override;
 
     [[nodiscard]] std::shared_ptr<AircraftCrewMember> clone() const override;

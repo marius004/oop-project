@@ -10,7 +10,7 @@ std::shared_ptr<AircraftCrewMember> FlightAttendant::clone() const {
     return std::make_shared<FlightAttendant>(id, name, salary);
 }
 
-std::string FlightAttendant::introduce(std::string flightNumber, std::string city) const {
+std::string FlightAttendant::introduce(const std::string& flightNumber, const std::string& city) const {
     std::stringstream ss;
 
     ss << "Good afternoon, ladies and gentlemen. On behalf of the captain and the entire crew, I'd like to welcome you aboard flight ";
@@ -20,7 +20,7 @@ std::string FlightAttendant::introduce(std::string flightNumber, std::string cit
     return ss.str();
 }
 
-void FlightAttendant::prepareForLanding(std::string destination,
+void FlightAttendant::prepareForLanding(const std::string& destination,
                                         std::unordered_set<std::shared_ptr<Passenger>> passengers) const {
     std::stringstream ss;
 
