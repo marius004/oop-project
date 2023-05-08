@@ -44,6 +44,10 @@ std::string Pilot::introduce(const std::string& flightNumber, const std::string&
 
 void Pilot::prepareForLanding(const std::string& destination, std::unordered_set<std::shared_ptr<Passenger>> passengers) const {
     std::cout << getLandingMessage(destination) << "\n";
+
+    for (const auto& passenger : passengers)
+        if (!passenger->isSeatbeltFastened())
+            std::cout << "Plase fasten your seatbelt " << passenger.get()->getLastName() << "\n";
 }
 
 

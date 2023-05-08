@@ -30,3 +30,7 @@ bool Passenger::isSeatbeltFastened() const {
 void Passenger::setSeatbeltFastened(bool fastened) {
     this->seatbeltFastened = fastened;
 }
+
+const std::string &Passenger::getLastName() const {
+    return lastName;
+}

@@ -10,6 +10,10 @@ class Passenger {
 private:
     std::string firstName;
     std::string lastName;
+public:
+    const std::string &getLastName() const;
+
+private:
     std::string id;
 
     unsigned int age;
@@ -22,7 +26,7 @@ public:
 
     bool operator!=(const Passenger &rhs) const;
 
-    bool isSeatbeltFastened() const;
+    [[nodiscard]] bool isSeatbeltFastened() const;
 
     void setSeatbeltFastened(bool fastened);
 
