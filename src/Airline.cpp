@@ -105,7 +105,8 @@ void Airline::simulate(time_t time) {
             }
 
             try {
-                auto pilot = getFlightPilot(flight);
+                // cloning just to get rid of the warning
+                auto pilot = getFlightPilot(flight)->clone();
                 std::cout << "The pilot for flight " << flight.getNumber() << " is Marius";
             } catch (const NoFlightPilotException& exception) {
                 std::cerr << exception.what();
