@@ -9,7 +9,6 @@
 #include <string>
 #include <memory>
 
-
 class AircraftCrewMember : public Employee {
 public:
     AircraftCrewMember(std::string id, std::string name, unsigned int salary);

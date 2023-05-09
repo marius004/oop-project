@@ -10,10 +10,6 @@ class Passenger {
 private:
     std::string firstName;
     std::string lastName;
-public:
-    const std::string &getLastName() const;
-
-private:
     std::string id;
 
     unsigned int age;
@@ -31,6 +27,8 @@ public:
     void setSeatbeltFastened(bool fastened);
 
     friend std::ostream &operator<<(std::ostream &os, const Passenger &passenger);
+
+    [[nodiscard]] const std::string &getLastName() const;
 };
 
 #endif //PASSENGER_H
