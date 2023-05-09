@@ -37,7 +37,7 @@ Sistem de gestionare a zborurilor intr-o companie aeriana
   - [x] apelarea constructorului din clasa de bază din constructori din derivate
   - [x] smart pointers
   - [x] `dynamic_cast`
-- [ ] suprascris cc/op= pentru copieri/atribuiri corecte, copy and swap
+- [x] suprascris cc/op= pentru copieri/atribuiri corecte, copy and swap
 - [x] excepții
   - [x] ierarhie proprie cu baza `std::exception` sau derivată din `std::exception`; minim 2 clase pentru erori specifice
   - [x] utilizare cu sens: de exemplu, `throw` în constructor, `try`/`catch` în `main`
