@@ -69,7 +69,7 @@ Flight::Flight(const Flight &flight)
       aircraft(flight.aircraft),
       status(flight.status),
       passengers(flight.passengers),
-      crew(flight.crew)
+//      crew(flight.crew)
     {
 //    this->deepCopySmartPointers(flight);
 }
