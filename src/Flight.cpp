@@ -69,7 +69,7 @@ Flight::Flight(const Flight &flight)
       aircraft(flight.aircraft),
       status(flight.status)
     {
-    this->deepCopySmartPointers(flight);
+//    this->deepCopySmartPointers(flight);
 }
 
 Flight &Flight::operator=(const Flight &other) {
@@ -82,7 +82,7 @@ Flight &Flight::operator=(const Flight &other) {
         this->aircraft = other.aircraft;
         this->status = other.status;
         this->passengers = other.passengers;
-        this->deepCopySmartPointers(other);
+//        this->deepCopySmartPointers(other);
     }
 
     return *this;
