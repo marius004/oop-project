@@ -15,8 +15,8 @@ Sistem de gestionare a zborurilor intr-o companie aeriana
 - [x] definirea a minim 3-4 clase folosind compunere
 - [x] constructori de inițializare
 - [x] pentru o clasă: constructor de copiere, `operator=` de copiere, destructor
-<!-- - [ ] pentru o altă clasă: constructor de mutare, `operator=` de mutare, destructor -->
-<!-- - [ ] pentru o altă clasă: toate cele 5 funcții membru speciale -->
+<!-- - [x] pentru o altă clasă: constructor de mutare, `operator=` de mutare, destructor -->
+<!-- - [x] pentru o altă clasă: toate cele 5 funcții membru speciale -->
 - [x] `operator<<` pentru toate clasele pentru afișare (std::ostream)
 - [x] cât mai multe `const` (unde este cazul)
 - [x] implementarea a minim 3 funcții membru publice pentru funcționalități specifice temei alese
