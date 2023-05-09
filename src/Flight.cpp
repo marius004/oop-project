@@ -112,15 +112,16 @@ const std::unordered_set<std::shared_ptr<AircraftCrewMember>> &Flight::getCrew()
     return crew;
 }
 
-void Flight::deepCopySmartPointers(const Flight &flight)  {
-    this->passengers.clear();
-    for (const auto& passenger : flight.passengers)
-        this->passengers.insert(std::make_shared<Passenger>(*passenger));
-
-    this->crew.clear();
-    for (const auto& member : flight.crew)
-        this->crew.insert(std::shared_ptr(member));
-}
+//
+//void Flight::deepCopySmartPointers(const Flight &flight)  {
+//    this->passengers.clear();
+//    for (const auto& passenger : flight.passengers)
+//        this->passengers.insert(std::make_shared<Passenger>(*passenger));
+//
+//    this->crew.clear();
+//    for (const auto& member : flight.crew)
+//        this->crew.insert(std::shared_ptr(member));
+//}
 
 
 
