@@ -77,7 +77,7 @@ Flight::Flight(const Flight &flight)
     this->crew = {};
 //    for (const auto& member : crew)
 //        this->crew.push_back(std::shared_ptr<AircraftCrewMember>(member));
-//}
+}
 
 Flight &Flight::operator=(const Flight &other) {
     if (this != &other) {
