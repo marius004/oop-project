@@ -114,13 +114,15 @@ const std::vector<std::shared_ptr<AircraftCrewMember>> &Flight::getCrew() const 
 
 
 void Flight::deepCopySmartPointers(const Flight &flight)  {
-    this->passengers.clear();
-    for (const auto& passenger : flight.passengers)
-        this->passengers.push_back(std::make_shared<Passenger>(*passenger));
+    std::cout << flight.duration;
 
+    this->passengers.clear();
+//    for (const auto& passenger : flight.passengers)
+//        this->passengers.push_back(std::make_shared<Passenger>(*passenger));
+//
     this->crew.clear();
-    for (const auto& member : flight.crew)
-        this->crew.push_back(std::shared_ptr<AircraftCrewMember>(member));
+//    for (const auto& member : flight.crew)
+//        this->crew.push_back(std::shared_ptr<AircraftCrewMember>(member));
 }
 
 
