@@ -10,6 +10,9 @@ protected:
     std::string name;
     unsigned int salary;
 public:
+    const std::string &getName() const;
+
+public:
     Employee(std::string  id, std::string  name, unsigned int salary);
     friend std::ostream &operator<<(std::ostream &os, const Employee &employee);
 };

@@ -15,7 +15,7 @@ private:
     std::vector<Aircraft> fleet;
     std::vector<Flight> flights;
 
-    void cancelFlight(const Flight& flight, int reason);
+    void cancelFlight(const Flight& flight);
     std::shared_ptr<Pilot> getFlightPilot(const Flight& flight);
 
 public:

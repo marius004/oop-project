@@ -3,6 +3,7 @@
 
 #include "../headers/Airline.h"
 #include "../headers/exceptions/NoFlightPilotException.h"
+#include "../headers/exceptions/InvalidPilotLicenseException.h"
 
 Airline::Airline(std::string name)
     : name(std::move(name)) {}
@@ -107,10 +108,17 @@ void Airline::simulate(time_t time) {
             try {
                 // cloning just to get rid of the warning
                 auto pilot = getFlightPilot(flight)->clone();
-                std::cout << "The pilot for flight " << flight.getNumber() << " is Marius";
+                std::cout << "The pilot for flight " << flight.getNumber() << " is " << pilot->getName();
+
+                if (!pilot->canFly())
+                    throw InvalidPilotLicenseException(pilot->getName());
+
             } catch (const NoFlightPilotException& exception) {
                 std::cerr << exception.what();
-                cancelFlight(flight, 2);
+                cancelFlight(flight);
+            } catch (const InvalidPilotLicenseException& exception) {
+                std::cerr << exception.what();
+                cancelFlight(flight);
             }
 
             for (const auto& crew : flight.getCrew())
@@ -127,8 +135,8 @@ void Airline::simulate(time_t time) {
     }
 }
 
-void Airline::cancelFlight(const Flight &flight, int reason) {
-    std::cout << "\n" << reason << " Cancelling flight " << flight.getNumber() << "\n";
+void Airline::cancelFlight(const Flight &flight) {
+    std::cout << "Cancelling flight " << flight.getNumber() << "\n";
     updateFlightStatus(flight, FlightStatus::CANCELLED);
 }
 

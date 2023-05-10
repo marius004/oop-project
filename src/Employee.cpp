@@ -10,3 +10,7 @@ std::ostream &operator<<(std::ostream &os, const Employee &employee) {
     return os;
 }
 
+const std::string &Employee::getName() const {
+    return name;
+}
+
