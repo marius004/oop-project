@@ -27,7 +27,7 @@ std::ostream &operator<<(std::ostream &os, const Flight &flight) {
 }
 
 void Flight::addPassenger(const std::shared_ptr<Passenger>& passenger) {
-    this->passengers.insert(passenger);
+    this->passengers.push_back(passenger);
 }
 
 const Aircraft &Flight::getAircraft() const {
@@ -97,10 +97,10 @@ const Address &Flight::getDestination() const {
 }
 
 void Flight::addCrewMember(const std::shared_ptr<AircraftCrewMember>& crewMember) {
-    this->crew.insert(crewMember);
+    this->crew.push_back(crewMember);
 }
 
-const std::unordered_set<std::shared_ptr<Passenger>> &Flight::getPassengers() const {
+const std::vector<std::shared_ptr<Passenger>> &Flight::getPassengers() const {
     return passengers;
 }
 
@@ -108,21 +108,19 @@ time_t Flight::getEstimatedLanding() const {
     return this->start + this->duration;
 }
 
-const std::unordered_set<std::shared_ptr<AircraftCrewMember>> &Flight::getCrew() const {
+const std::vector<std::shared_ptr<AircraftCrewMember>> &Flight::getCrew() const {
     return crew;
 }
 
 
 void Flight::deepCopySmartPointers(const Flight &flight)  {
-    std::unordered_set<std::shared_ptr<Passenger>> copy;
-
+    this->passengers.clear();
     for (const auto& passenger : flight.passengers)
-        copy.insert(std::make_shared<Passenger>(*passenger));
-    passengers = copy;
+        this->passengers.push_back(std::make_shared<Passenger>(*passenger));
 
-//    this->crew.clear();
-//    for (const auto& member : flight.crew)
-//        this->crew.insert(std::shared_ptr(member));
+    this->crew.clear();
+    for (const auto& member : flight.crew)
+        this->crew.push_back(std::shared_ptr<AircraftCrewMember>(member));
 }
 
 

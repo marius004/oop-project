@@ -26,8 +26,8 @@ private:
     Aircraft aircraft;
     FlightStatus status;
 
-    std::unordered_set<std::shared_ptr<Passenger>> passengers;
-    std::unordered_set<std::shared_ptr<AircraftCrewMember>> crew;
+    std::vector<std::shared_ptr<Passenger>> passengers;
+    std::vector<std::shared_ptr<AircraftCrewMember>> crew;
 
 public:
     [[nodiscard]] const Address &getDestination() const;
@@ -38,11 +38,11 @@ public:
 
     void setStatus(FlightStatus status);
 
-    const std::unordered_set<std::shared_ptr<AircraftCrewMember>> &getCrew() const;
+    [[nodiscard]] const std::vector<std::shared_ptr<AircraftCrewMember>> &getCrew() const;
+
+    [[nodiscard]] const std::vector<std::shared_ptr<Passenger>> &getPassengers() const;
 
     [[nodiscard]] FlightStatus getStatus() const;
-
-    [[nodiscard]] const std::unordered_set<std::shared_ptr<Passenger>> &getPassengers() const;
 
     [[nodiscard]] time_t getDuration() const;
 
