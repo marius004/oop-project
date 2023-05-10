@@ -67,10 +67,17 @@ Flight::Flight(const Flight &flight)
       source(flight.source),
       destination(flight.destination),
       aircraft(flight.aircraft),
-      status(flight.status),
-      passengers(flight.passengers),
-      crew(flight.crew)
-    {}
+      status(flight.status)
+    {
+
+    this->passengers.clear();
+    for (const auto& passenger : passengers)
+        this->passengers.push_back(std::shared_ptr<Passenger>(passenger));
+
+    this->crew.clear();
+    for (const auto& member : crew)
+        this->crew.push_back(std::shared_ptr<AircraftCrewMember>(member));
+}
 
 Flight &Flight::operator=(const Flight &other) {
     if (this != &other) {
