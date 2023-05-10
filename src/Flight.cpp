@@ -70,14 +70,14 @@ Flight::Flight(const Flight &flight)
       status(flight.status)
     {
 
-    this->passengers.clear();
-    for (const auto& passenger : passengers)
-        this->passengers.push_back(std::shared_ptr<Passenger>(passenger));
+    this->passengers = {};
+//    for (const auto& passenger : passengers)
+//        this->passengers.push_back(std::shared_ptr<Passenger>(passenger));
 
-    this->crew.clear();
-    for (const auto& member : crew)
-        this->crew.push_back(std::shared_ptr<AircraftCrewMember>(member));
-}
+    this->crew = {};
+//    for (const auto& member : crew)
+//        this->crew.push_back(std::shared_ptr<AircraftCrewMember>(member));
+//}
 
 Flight &Flight::operator=(const Flight &other) {
     if (this != &other) {
