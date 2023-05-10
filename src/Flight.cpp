@@ -67,10 +67,10 @@ Flight::Flight(const Flight &flight)
       source(flight.source),
       destination(flight.destination),
       aircraft(flight.aircraft),
-      status(flight.status)
-    {
-    this->deepCopySmartPointers(flight);
-}
+      status(flight.status),
+      passengers(flight.passengers),
+      crew(flight.crew)
+    {}
 
 Flight &Flight::operator=(const Flight &other) {
     if (this != &other) {
@@ -82,7 +82,7 @@ Flight &Flight::operator=(const Flight &other) {
         this->aircraft = other.aircraft;
         this->status = other.status;
         this->passengers = other.passengers;
-        this->deepCopySmartPointers(other);
+        this->crew = other.crew;
     }
 
     return *this;
@@ -110,19 +110,6 @@ time_t Flight::getEstimatedLanding() const {
 
 const std::vector<std::shared_ptr<AircraftCrewMember>> &Flight::getCrew() const {
     return crew;
-}
-
-
-void Flight::deepCopySmartPointers(const Flight &flight)  {
-    std::cout << flight.duration;
-
-    this->passengers.clear();
-//    for (const auto& passenger : flight.passengers)
-//        this->passengers.push_back(std::make_shared<Passenger>(*passenger));
-//
-    this->crew.clear();
-//    for (const auto& member : flight.crew)
-//        this->crew.push_back(std::shared_ptr<AircraftCrewMember>(member));
 }
 
 

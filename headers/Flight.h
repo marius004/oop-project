@@ -56,8 +56,6 @@ public:
 
     void addPassenger(const std::shared_ptr<Passenger>& passenger);
 
-    void deepCopySmartPointers(const Flight& flight);
-
     void addCrewMember(const std::shared_ptr<AircraftCrewMember>& crewMember);
 
     friend std::ostream &operator<<(std::ostream &os, const Flight &flight);
