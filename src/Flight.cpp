@@ -82,7 +82,10 @@ Flight &Flight::operator=(const Flight &other) {
         this->aircraft = other.aircraft;
         this->status = other.status;
         this->passengers = other.passengers;
-        this->crew = other.crew;
+
+        this->crew.clear();
+        for (const auto& member : crew)
+            this->crew.push_back(std::shared_ptr<AircraftCrewMember>(member));
     }
 
     return *this;
