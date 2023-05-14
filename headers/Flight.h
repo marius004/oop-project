@@ -26,8 +26,8 @@ private:
     Aircraft aircraft;
     FlightStatus status;
 
-    std::vector<std::shared_ptr<Passenger>> passengers;
-    std::vector<std::shared_ptr<AircraftCrewMember>> crew;
+    std::unordered_set<std::shared_ptr<Passenger>> passengers;
+    std::unordered_set<std::shared_ptr<AircraftCrewMember>> crew;
 
     void deepCopyPointerFields(const Flight& flight);
 
@@ -38,13 +38,13 @@ public:
 
     Flight(const Flight& flight);
 
-    Flight(const Flight&& flight);
+    Flight(const Flight&& flight) noexcept;
 
     void setStatus(FlightStatus status);
 
-    [[nodiscard]] const std::vector<std::shared_ptr<AircraftCrewMember>> &getCrew() const;
+    [[nodiscard]] const std::unordered_set<std::shared_ptr<AircraftCrewMember>> &getCrew() const;
 
-    [[nodiscard]] const std::vector<std::shared_ptr<Passenger>> &getPassengers() const;
+    [[nodiscard]] const std::unordered_set<std::shared_ptr<Passenger>> &getPassengers() const;
 
     [[nodiscard]] FlightStatus getStatus() const;
 
