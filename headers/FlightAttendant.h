@@ -10,11 +10,11 @@ public:
     [[nodiscard]] std::string introduce(const std::string& flightNumber, const std::string& city) const override;
 
     void prepareForLanding(const std::string& destination,
-                           std::vector<std::shared_ptr<Passenger>> passengers) const override;
+                           std::unordered_set<std::shared_ptr<Passenger>> passengers) const override;
 
     [[nodiscard]] std::shared_ptr<AircraftCrewMember> clone() const override;
 
-    bool canFly() const override;
+    [[nodiscard]] bool canFly() const override;
 };
 
 #endif //OOP_FLIGHTATTENDANT_H

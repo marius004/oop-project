@@ -86,7 +86,7 @@ void Airline::maintainAircraft(const Aircraft &aircraft, time_t time) {
     iter->maintenance(time);
 }
 
-void Airline::addFlightCrew(const Flight &flight, std::shared_ptr<AircraftCrewMember> member) {
+void Airline::addFlightCrew(const Flight &flight, const std::shared_ptr<AircraftCrewMember>& member) {
     auto flightIterator = std::find(flights.begin(), flights.end(), flight);
     flightIterator->addCrewMember(member);
 }

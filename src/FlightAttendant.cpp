@@ -21,7 +21,7 @@ std::string FlightAttendant::introduce(const std::string& flightNumber, const st
 }
 
 void FlightAttendant::prepareForLanding(const std::string& destination,
-                                        std::vector<std::shared_ptr<Passenger>> passengers) const {
+                                        std::unordered_set<std::shared_ptr<Passenger>> passengers) const {
     std::stringstream ss;
 
     ss << "Good afternoon, ladies and gentlemen. As we begin our descent into" << destination << ",\n";
