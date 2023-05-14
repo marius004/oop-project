@@ -52,5 +52,5 @@ void Pilot::prepareForLanding(const std::string& destination, std::vector<std::s
 
 
 bool Pilot::canFly() const {
-    return license != "";
+    return !license.empty();
 }

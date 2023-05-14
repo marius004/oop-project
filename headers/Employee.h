@@ -10,7 +10,7 @@ protected:
     std::string name;
     unsigned int salary;
 public:
-    const std::string &getName() const;
+    [[nodiscard]] const std::string &getName() const;
 
 public:
     Employee(std::string  id, std::string  name, unsigned int salary);

@@ -70,7 +70,11 @@ Flight::Flight(const Flight &flight)
       status(flight.status),
       passengers(flight.passengers),
       crew(flight.crew)
-    {}
+    {
+    this->crew.clear();
+    for (const auto& member : flight.crew)
+        this->crew.push_back(member->clone());
+}
 
 Flight &Flight::operator=(const Flight &other) {
     if (this != &other) {
