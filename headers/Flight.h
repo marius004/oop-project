@@ -29,12 +29,16 @@ private:
     std::vector<std::shared_ptr<Passenger>> passengers;
     std::vector<std::shared_ptr<AircraftCrewMember>> crew;
 
+    void deepCopyPointerFields(const Flight& flight);
+
 public:
     [[nodiscard]] const Address &getDestination() const;
 
     Flight(std::string number, time_t start, time_t duration, Address source, Address destination, Aircraft aircraft);
 
     Flight(const Flight& flight);
+
+    Flight(const Flight&& flight);
 
     void setStatus(FlightStatus status);
 

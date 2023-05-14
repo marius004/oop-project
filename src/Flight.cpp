@@ -67,16 +67,9 @@ Flight::Flight(const Flight &flight)
       source(flight.source),
       destination(flight.destination),
       aircraft(flight.aircraft),
-      status(flight.status),
-      passengers(flight.passengers)
+      status(flight.status)
     {
-    this->crew.clear();
-    for (const auto& member : flight.crew)
-        this->crew.push_back(member->clone());
-
-    this->passengers.clear();
-    for (const auto& passenger : flight.passengers)
-        this->passengers.push_back(std::shared_ptr<Passenger>(passenger));
+    this->deepCopyPointerFields(flight);
 }
 
 Flight &Flight::operator=(const Flight &other) {
@@ -88,16 +81,8 @@ Flight &Flight::operator=(const Flight &other) {
         this->destination = other.destination;
         this->aircraft = other.aircraft;
         this->status = other.status;
-
-        this->passengers.clear();
-        for (const auto& passenger : passengers)
-            this->passengers.push_back(std::shared_ptr<Passenger>(passenger));
-
-        this->crew.clear();
-        for (const auto& member : crew)
-            this->crew.push_back(std::shared_ptr<AircraftCrewMember>(member));
+        this->deepCopyPointerFields(other);
     }
-
     return *this;
 }
 
@@ -123,6 +108,27 @@ time_t Flight::getEstimatedLanding() const {
 
 const std::vector<std::shared_ptr<AircraftCrewMember>> &Flight::getCrew() const {
     return crew;
+}
+
+void Flight::deepCopyPointerFields(const Flight &flight) {
+    this->crew.clear();
+    for (const auto& member : flight.crew)
+        this->crew.push_back(member->clone());
+
+    this->passengers.clear();
+    for (const auto& passenger : flight.passengers)
+        this->passengers.push_back(std::shared_ptr<Passenger>(passenger));
+}
+
+Flight::Flight(const Flight &&flight) :
+    number(flight.number),
+    start(flight.start),
+    duration(flight.duration),
+    source(flight.source),
+    destination(flight.destination),
+    aircraft(flight.aircraft),
+    status(flight.status) {
+    this->deepCopyPointerFields(flight);
 }
 
 
