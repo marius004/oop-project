@@ -68,12 +68,15 @@ Flight::Flight(const Flight &flight)
       destination(flight.destination),
       aircraft(flight.aircraft),
       status(flight.status),
-      passengers(flight.passengers),
-      crew(flight.crew)
+      passengers(flight.passengers)
     {
     this->crew.clear();
     for (const auto& member : flight.crew)
         this->crew.push_back(member->clone());
+
+    this->passengers.clear();
+    for (const auto& passenger : flight.passengers)
+        this->passengers.push_back(std::shared_ptr<Passenger>(passenger));
 }
 
 Flight &Flight::operator=(const Flight &other) {
