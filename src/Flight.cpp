@@ -121,16 +121,16 @@ void Flight::deepCopyPointerFields(const Flight &flight) {
 }
 
 Flight::Flight(const Flight &&flight) noexcept :
-    number(flight.number),
-    start(flight.start),
-    duration(flight.duration),
-    source(flight.source),
-    destination(flight.destination),
-    aircraft(flight.aircraft),
-    status(flight.status) {
-    this->deepCopyPointerFields(flight);
-}
-
+        number(flight.number),
+        start(flight.start),
+        duration(flight.duration),
+        source(flight.source),
+        destination(flight.destination),
+        aircraft(flight.aircraft),
+        status(flight.status),
+        passengers(flight.passengers),
+        crew(flight.crew)
+    {}
 
 
 
