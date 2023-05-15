@@ -144,7 +144,7 @@ std::shared_ptr<Pilot> Airline::getFlightPilot(const Flight &flight) {
 
 void Airline::introduceCrew(const Flight& flight) {
     for (const auto& member : flight.getCrew())
-        member->introduce(flight.getNumber(), flight.getDestinationCity());
+        std::cout << member->introduce(flight.getNumber(), flight.getDestinationCity());
 }
 
 void Airline::prepareForLanding(const Flight &flight) {
