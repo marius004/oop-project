@@ -136,7 +136,7 @@ void Airline::cancelFlight(const Flight &flight) {
 std::shared_ptr<Pilot> Airline::getFlightPilot(const Flight &flight) {
     auto flightIterator = std::find(flights.begin(), flights.end(), flight);
     for (const auto& member : flightIterator->getCrew())
-        if (auto pilot = std::static_pointer_cast<Pilot>(member); pilot != nullptr)
+        if (auto pilot = std::dynamic_pointer_cast<Pilot>(member); pilot != nullptr)
             return pilot;
 
     throw NoFlightPilotException(flightIterator->getNumber());
