@@ -108,26 +108,20 @@ void Airline::simulate(time_t time) {
             try {
                 auto pilot = getFlightPilot(flight)->clone();
                 std::cout << "The pilot for flight " << flight.getNumber() << " is " << pilot->getName();
-
-                if (!pilot->canFly())
-                    throw InvalidPilotLicenseException(pilot->getName());
-
             } catch (const NoFlightPilotException& exception) {
                 std::cerr << exception.what();
                 cancelFlight(flight);
+                continue;
             } catch (const InvalidPilotLicenseException& exception) {
                 std::cerr << exception.what();
                 cancelFlight(flight);
+                continue;
             }
 
-            for (const auto& crew : flight.getCrew())
-                crew->introduce(flight.getNumber(), flight.getDestination().getCity());
-
+            introduceCrew(flight);
             updateFlightStatus(flight, FlightStatus::FLYING);
         } else if (flight.getEstimatedLanding() - 1 == time) {
-            // prepare for landing
-            for (const auto& crew : flight.getCrew())
-                crew->prepareForLanding(flight.getDestination().getCity(), flight.getPassengers());
+            prepareForLanding(flight);
         }
 
         std::cout << "Flight " << flight.getNumber() << " is still flying\n";
@@ -142,8 +136,19 @@ void Airline::cancelFlight(const Flight &flight) {
 std::shared_ptr<Pilot> Airline::getFlightPilot(const Flight &flight) {
     auto flightIterator = std::find(flights.begin(), flights.end(), flight);
     for (const auto& member : flightIterator->getCrew())
-        if (member->canFly())
-            return std::dynamic_pointer_cast<Pilot>(member);
+        if (auto pilot = std::static_pointer_cast<Pilot>(member); pilot != nullptr)
+            return pilot;
 
     throw NoFlightPilotException(flightIterator->getNumber());
 }
+
+void Airline::introduceCrew(const Flight& flight) {
+    for (const auto& member : flight.getCrew())
+        member->introduce(flight.getNumber(), flight.getDestinationCity());
+}
+
+void Airline::prepareForLanding(const Flight &flight) {
+    for (const auto& crew : flight.getCrew())
+        crew->prepareForLanding(flight.getDestinationCity(), flight.getPassengers());
+}
+

@@ -34,7 +34,3 @@ void FlightAttendant::prepareForLanding(const std::string& destination,
         if (!passenger->isSeatbeltFastened())
             passenger->setSeatbeltFastened(true);
 }
-
-bool FlightAttendant::canFly() const {
-    return false;
-}

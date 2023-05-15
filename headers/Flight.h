@@ -52,6 +52,8 @@ public:
 
     [[nodiscard]] time_t getStart() const;
 
+    [[nodiscard]] const std::string& getDestinationCity() const;
+
     [[nodiscard]] time_t getEstimatedLanding() const;
 
     [[nodiscard]] const std::string &getNumber() const;

@@ -38,6 +38,10 @@ public:
 
     void maintainAircraft(const Aircraft& aircraft, time_t time);
 
+    static void introduceCrew(const Flight& flight);
+
+    static void prepareForLanding(const Flight& flight);
+
     [[nodiscard]] std::vector<Flight> getFlights(time_t time) const;
 
     [[nodiscard]] const std::vector<Flight>& getFlights() const;

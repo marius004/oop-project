@@ -47,10 +47,5 @@ void Pilot::prepareForLanding(const std::string& destination, std::unordered_set
 
     for (const auto& passenger : passengers)
         if (!passenger->isSeatbeltFastened())
-            std::cout << "Plase fasten your seatbelt " << passenger.get()->getLastName() << "\n";
-}
-
-
-bool Pilot::canFly() const {
-    return !license.empty();
+            std::cout << "Plase fasten your seatbelt " << passenger->getLastName() << "\n";
 }

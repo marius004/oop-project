@@ -132,5 +132,9 @@ Flight::Flight(const Flight &&flight) noexcept :
         crew(flight.crew)
     {}
 
+const std::string &Flight::getDestinationCity() const {
+    return this->destination.getCity();
+}
+
 
 
