@@ -32,7 +32,6 @@ private:
     void deepCopyPointerFields(const Flight& flight);
 
 public:
-    [[nodiscard]] const Address &getDestination() const;
 
     Flight(std::string number, time_t start, time_t duration, Address source, Address destination, Aircraft aircraft);
 

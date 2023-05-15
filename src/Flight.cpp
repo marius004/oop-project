@@ -90,10 +90,6 @@ Flight::~Flight() {
     std::cout << "~Flight()\n";
 }
 
-const Address &Flight::getDestination() const {
-    return destination;
-}
-
 void Flight::addCrewMember(const std::shared_ptr<AircraftCrewMember>& crewMember) {
     this->crew.insert(crewMember);
 }
