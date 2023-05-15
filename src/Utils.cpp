@@ -1,5 +1,6 @@
 #include "../headers/exceptions/InvalidArgumentException.h"
 #include "../headers/FlightAttendant.h"
+#include "../headers/FlightEngineer.h"
 #include "../headers/Utils.h"
 #include <cstdlib>
 #include <string>
@@ -95,6 +96,11 @@ Airline Utils::generateAirline(const std::string &name, int aircraftCount, int f
         airline.addFlightCrew(flight, Utils::generateCrewMember(true, "LICENSE 45678976"));
         for (int i = 0; i < Utils::FLIGHT_ATTENDANTS;++i)
             airline.addFlightCrew(flight, Utils::generateCrewMember());
+
+        // todo replace this with a factory!
+        airline.addFlightCrew(flight, std::make_shared<FlightEngineer>(Utils::generateID(),
+                                                     Utils::lastNames.at(rand() % Utils::lastNames.size()),
+                                                     80'000));
 
         int infantsCount = rand() % (Utils::MAX_INFANTS + 1);
         std::vector<std::shared_ptr<Passenger>> passengers;
