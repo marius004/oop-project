@@ -3,8 +3,8 @@
 #include "../headers/FlightEngineer.h"
 #include <sstream>
 
-FlightEngineer::FlightEngineer(std::string id, std::string name, unsigned int salary)
-    : AircraftCrewMember(std::move(id), std::move(name),salary) {}
+FlightEngineer::FlightEngineer(std::string id, std::string name, unsigned int salary, int experience)
+    : AircraftCrewMember(std::move(id), std::move(name),salary), experience(experience) {}
 
 std::string FlightEngineer::introduce(const std::string &flightNumber, const std::string &city) const {
     std::stringstream ss;
@@ -35,5 +35,11 @@ void FlightEngineer::prepareForLanding(const std::string &destination,
 }
 
 std::shared_ptr<AircraftCrewMember> FlightEngineer::clone() const {
-    return std::make_shared<FlightEngineer>(id, name, salary);
+    return std::make_shared<FlightEngineer>(id, name, salary, experience);
 }
+
+std::ostream &operator<<(std::ostream &os, const FlightEngineer &engineer) {
+    os << static_cast<const AircraftCrewMember &>(engineer) << " experience: " << engineer.experience;
+    return os;
+}
+

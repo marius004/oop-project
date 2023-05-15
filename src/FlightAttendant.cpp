@@ -34,3 +34,8 @@ void FlightAttendant::prepareForLanding(const std::string& destination,
         if (!passenger->isSeatbeltFastened())
             passenger->setSeatbeltFastened(true);
 }
+
+std::ostream &operator<<(std::ostream &os, const FlightAttendant &attendant) {
+    os << static_cast<const AircraftCrewMember &>(attendant);
+    return os;
+}

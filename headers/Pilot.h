@@ -1,6 +1,7 @@
 #ifndef OOP_PILOT_H
 #define OOP_PILOT_H
 
+#include <ostream>
 #include "../headers/AircraftCrewMember.h"
 
 class Pilot : public AircraftCrewMember {
@@ -17,6 +18,8 @@ public:
                            std::unordered_set<std::shared_ptr<Passenger>> passengers) const override;
 
     [[nodiscard]] std::shared_ptr<AircraftCrewMember> clone() const override;
+
+    friend std::ostream &operator<<(std::ostream &os, const Pilot &pilot);
 };
 
 #endif //OOP_PILOT_H

@@ -49,3 +49,8 @@ void Pilot::prepareForLanding(const std::string& destination, std::unordered_set
         if (!passenger->isSeatbeltFastened())
             std::cout << "Plase fasten your seatbelt " << passenger->getLastName() << "\n";
 }
+
+std::ostream &operator<<(std::ostream &os, const Pilot &pilot) {
+    os << static_cast<const AircraftCrewMember &>(pilot) << " license: " << pilot.license;
+    return os;
+}

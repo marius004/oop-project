@@ -100,7 +100,8 @@ Airline Utils::generateAirline(const std::string &name, int aircraftCount, int f
         // todo replace this with a factory!
         airline.addFlightCrew(flight, std::make_shared<FlightEngineer>(Utils::generateID(),
                                                      Utils::lastNames.at(rand() % Utils::lastNames.size()),
-                                                     80'000));
+                                                     80'000,
+                                                     5));
 
         int infantsCount = rand() % (Utils::MAX_INFANTS + 1);
         std::vector<std::shared_ptr<Passenger>> passengers;
