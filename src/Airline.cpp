@@ -63,18 +63,6 @@ void Airline::addFlightPassenger(const Flight &flight, std::shared_ptr<Passenger
         flightIterator->addPassenger(passenger);
 }
 
-std::vector<Flight> Airline::getFlights(time_t time) const {
-    std::vector<Flight> ret;
-
-    for (const auto& flight : this->flights)
-        if (flight.getStart() == time ||
-            (flight.getStart() + flight.getDuration()) == time ||
-            flight.getStatus() == FlightStatus::FLYING)
-            ret.emplace_back(flight);
-
-    return ret;
-}
-
 void Airline::updateFlightStatus(const Flight &flight, const FlightStatus &status) {
     auto iter = std::find(this->flights.begin(), this->flights.end(), flight);
     if (iter == this->flights.end())

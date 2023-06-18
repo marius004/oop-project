@@ -45,8 +45,6 @@ public:
 
     void maintainAircraft(const Aircraft &aircraft, time_t time);
 
-    [[nodiscard]] std::vector<Flight> getFlights(time_t time) const;
-
     [[nodiscard]] const std::vector<Flight> &getFlights() const;
 
     bool operator==(const Airline &rhs) const;
