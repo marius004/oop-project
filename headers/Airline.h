@@ -28,12 +28,7 @@ public:
 
     void addAircraft(const Aircraft &aircraft);
 
-    void addAircraft(const std::vector<Aircraft> &aircraft);
-
     void simulate(time_t time);
-
-    void addFlight(const std::string &number, time_t start, time_t duration, const Address &source,
-                   const Address &destination, const Aircraft &aircraft);
 
     void addFlight(const Flight &flight);
 
@@ -44,8 +39,6 @@ public:
     void updateFlightStatus(const Flight &flight, const FlightStatus &status);
 
     void maintainAircraft(const Aircraft &aircraft, time_t time);
-
-    [[nodiscard]] const std::vector<Flight> &getFlights() const;
 
     bool operator==(const Airline &rhs) const;
 
@@ -60,7 +53,7 @@ public:
 
     virtual ~Airline() = default;
 
-    void handleFlightsLandingNow(const std::vector<Flight> &lanfingFlights);
+    void handleFlightsLandingNow(const std::vector<Flight> &landingFlights);
 
     static void handleFlightsPreparingForLanding(const std::vector<Flight> &flights);
 
