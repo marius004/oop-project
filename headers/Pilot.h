@@ -3,6 +3,7 @@
 
 #include <ostream>
 #include "../headers/AircraftCrewMember.h"
+#include "../headers/Cloneable.h"
 
 class Pilot : public AircraftCrewMember {
 private:

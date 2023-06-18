@@ -50,11 +50,11 @@ Sistem de gestionare a zborurilor intr-o companie aeriana
 ## Tema 3
 
 #### Cerințe
-- [ ] 2 șabloane de proiectare (design patterns)
-- [ ] o funcție șablon (template) cu sens; minim 2 instanțieri
-- [ ] o clasă șablon cu sens; minim 2 instanțieri
+- [x] 2 șabloane de proiectare (design patterns)
+- [x] o funcție șablon (template) cu sens; minim 2 instanțieri
+- [x] o clasă șablon cu sens; minim 2 instanțieri
 <!-- - [ ] o specializare pe funcție/clasă șablon -->
-- [ ] tag de `git`: de exemplu `v0.3` sau `v1.0`
+- [x] tag de `git`: de exemplu `v0.3` sau `v1.0`
 
 ## Resurse
 

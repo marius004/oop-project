@@ -59,7 +59,8 @@ void Airline::addFlight(const Flight& flight) {
 
 void Airline::addFlightPassenger(const Flight &flight, std::shared_ptr<Passenger> passenger) {
     auto flightIterator = std::find(flights.begin(), flights.end(), flight);
-    flightIterator->addPassenger(passenger);
+    if (flightIterator != flights.end())
+        flightIterator->addPassenger(passenger);
 }
 
 std::vector<Flight> Airline::getFlights(time_t time) const {
@@ -95,42 +96,56 @@ void Airline::addFlightCrew(const Flight &flight, const std::shared_ptr<Aircraft
     flightIterator->addCrewMember(member);
 }
 
-void Airline::simulate(time_t time) {
-    for (const auto& flight :  getFlights(time)) {
-        std::cout << flight << "\n";
+void Airline::handleFlightsLandingNow(const std::vector<Flight>& flights) {
+    for (const auto& flight : flights) {
+        std::cout << "Flight " << flight.getNumber() << " has just landed\n";
+        updateFlightStatus(flight, FlightStatus::LANDED);
+    }
+}
 
-        if (flight.getEstimatedLanding() == time) {
-            std::cout << "Flight " << flight.getNumber() << " has just landed\n";
-            updateFlightStatus(flight, FlightStatus::LANDED);
-            continue;
-        } else if (flight.getStart() == time) {
-            if (!flight.getAircraft().canFly()) {
-                std::cout << "Performing maintenance for aircraft " << flight.getAircraft() << "\n";
-                maintainAircraft(flight.getAircraft(), time);
-            }
+void Airline::handleFlightsPreparingForLanding(const std::vector<Flight>& flights) {
+    for (const auto& flight : flights)
+        prepareForLanding(flight);
+}
 
-            try {
-                // cloning just to get rid of the warning
-                auto pilot = getFlightPilot(flight)->clone();
-                std::cout << "The pilot for flight " << flight.getNumber() << " is " << pilot->getName() << "\n";
-            } catch (const NoFlightPilotException& exception) {
-                std::cerr << exception.what();
-                cancelFlight(flight);
-                continue;
-            } catch (const InvalidPilotLicenseException& exception) {
-                std::cerr << exception.what();
-                cancelFlight(flight);
-                continue;
-            }
-
-            introduceCrew(flight);
-            updateFlightStatus(flight, FlightStatus::FLYING);
-        } else if (flight.getEstimatedLanding() - 1 == time) {
-            prepareForLanding(flight);
+void Airline::handleFlightsTakingOff(time_t time, const std::vector<Flight>& flights) {
+    for (const auto& flight : flights) {
+        if (!flight.getAircraft().canFly()) {
+            std::cout << "Performing maintenance for aircraft " << flight.getAircraft() << "\n";
+            maintainAircraft(flight.getAircraft(), time);
         }
 
-        std::cout << "Flight " << flight.getNumber() << " is still flying\n";
+        try {
+            // cloning just to get rid of the warning
+            auto pilot = getFlightPilot(flight)->clone();
+            std::cout << "The pilot for flight " << flight.getNumber() << " is " << pilot->getName() << "\n";
+        } catch (const NoFlightPilotException& exception) {
+            std::cerr << exception.what();
+            cancelFlight(flight);
+            continue;
+        } catch (const InvalidPilotLicenseException& exception) {
+            std::cerr << exception.what();
+            cancelFlight(flight);
+            continue;
+        }
+
+        introduceCrew(flight);
+        updateFlightStatus(flight, FlightStatus::FLYING);
     }
+}
+
+void Airline::simulate(time_t time) {
+    handleFlightsLandingNow(searchByCriteria(this->flights, [&](const Flight& flight) {
+            return flight.getEstimatedLanding() == time;
+    }));
+
+    handleFlightsTakingOff(time, searchByCriteria(this->flights, [&](const Flight& flight) {
+        return flight.getStart() == time;
+    }));
+
+    handleFlightsPreparingForLanding(searchByCriteria(this->flights, [&](const Flight& flight) {
+        return flight.getEstimatedLanding() - 1 == time;
+    }));
 }
 
 void Airline::cancelFlight(const Flight &flight) {
@@ -154,4 +169,18 @@ void Airline::introduceCrew(const Flight& flight) {
 void Airline::prepareForLanding(const Flight &flight) {
     for (const auto& crew : flight.getCrew())
         crew->prepareForLanding(flight.getDestinationCity(), flight.getPassengers());
+}
+
+std::shared_ptr<Airline> Airline::clone() const {
+    return std::make_shared<Airline>(*this);
+}
+
+template<typename T, typename F>
+std::vector<T> Airline::searchByCriteria(const std::vector<T> &items, F criteria) {
+    std::vector<T> result;
+    for (const T& item : items)
+        if (criteria(item))
+            result.push_back(item);
+
+    return result;
 }

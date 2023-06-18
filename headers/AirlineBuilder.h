@@ -8,7 +8,7 @@ class AirlineBuilder {
 private:
     std::shared_ptr<Airline> instance;
 public:
-    AirlineBuilder(std::string name);
+    explicit AirlineBuilder(std::string name);
 
     std::shared_ptr<Airline> build();
 

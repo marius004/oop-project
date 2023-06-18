@@ -23,6 +23,9 @@ set(debug_mode "$<OR:${is_debug},${is_rel_with_deb}>")
 function(set_custom_stdlib_and_sanitizers target add_apple_asan)
     if(MSVC)
         target_compile_options(${target} PRIVATE "$<${debug_mode}:/fsanitize=address>")
+        # see https://gitlab.kitware.com/cmake/cmake/-/issues/24922
+        set_target_properties(${target} PROPERTIES VS_USER_PROPS "${CMAKE_SOURCE_DIR}/disable_modules.props")
+        target_compile_options(${target} PRIVATE "$<${debug_mode}:/fsanitize=address>" /experimental:module-)
         return()
     endif()
 
@@ -81,7 +84,7 @@ endfunction()
 
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
 
-add_executable(${PROJECT_NAME} main.cpp headers/Address.h src/Address.cpp headers/Passenger.h src/Passenger.cpp headers/Flight.h src/Flight.cpp headers/Aircraft.h src/Aircraft.cpp headers/Airline.h src/Airline.cpp headers/Utils.h src/Utils.cpp headers/FlightStatus.h headers/InfantPassenger.h src/InfantPassenger.cpp headers/exceptions/InvalidArgumentException.h src/exceptions/InvalidArgumentException.cpp headers/exceptions/InvalidAgeArgumentException.h src/exceptions/InvalidAgeArgumentException.cpp headers/exceptions/NullArgumentException.h src/exceptions/NullArgumentException.cpp headers/Employee.h src/Employee.cpp headers/AircraftCrewMember.h src/AircraftCrewMember.cpp headers/Pilot.h src/Pilot.cpp headers/FlightAttendant.h src/FlightAttendant.cpp headers/exceptions/NoFlightPilotException.h src/exceptions/NoFlightPilotException.cpp headers/PassengerFactory.h headers/RandomPassengerFactory.h src/RandomPassengerFactory.cpp headers/AddressFactory.h headers/RandomAddressFactory.h src/RandomAddressFactory.cpp headers/AircraftFactory.h headers/AirlineBuilder.h src/AirlineBuilder.cpp headers/exceptions/InvalidPilotLicenseException.h src/exceptions/InvalidPilotLicenseException.cpp headers/FlightEngineer.h src/FlightEngineer.cpp)
+add_executable(${PROJECT_NAME} main.cpp headers/Address.h src/Address.cpp headers/Passenger.h src/Passenger.cpp headers/Flight.h src/Flight.cpp headers/Aircraft.h src/Aircraft.cpp headers/Airline.h src/Airline.cpp headers/Utils.h src/Utils.cpp headers/FlightStatus.h headers/InfantPassenger.h src/InfantPassenger.cpp headers/exceptions/InvalidArgumentException.h src/exceptions/InvalidArgumentException.cpp headers/exceptions/InvalidAgeArgumentException.h src/exceptions/InvalidAgeArgumentException.cpp headers/exceptions/NullArgumentException.h src/exceptions/NullArgumentException.cpp headers/Employee.h src/Employee.cpp headers/AircraftCrewMember.h src/AircraftCrewMember.cpp headers/Pilot.h src/Pilot.cpp headers/FlightAttendant.h src/FlightAttendant.cpp headers/exceptions/NoFlightPilotException.h src/exceptions/NoFlightPilotException.cpp headers/PassengerFactory.h headers/RandomPassengerFactory.h src/RandomPassengerFactory.cpp headers/AddressFactory.h headers/RandomAddressFactory.h src/RandomAddressFactory.cpp headers/AircraftFactory.h headers/AirlineBuilder.h src/AirlineBuilder.cpp headers/exceptions/InvalidPilotLicenseException.h src/exceptions/InvalidPilotLicenseException.cpp headers/FlightEngineer.h src/FlightEngineer.cpp cmake-build-debug/Cloneable.h headers/Cloneable.h)
 
 
 ###############################################################################
