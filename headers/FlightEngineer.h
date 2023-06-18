@@ -5,7 +5,7 @@
 #include <memory>
 #include <ostream>
 
-class FlightEngineer : public AircraftCrewMember {
+class [[maybe_unused]] FlightEngineer : public AircraftCrewMember {
 private:
     int experience;
 

@@ -28,14 +28,6 @@ void Airline::addAircraft(const Aircraft &aircraft) {
     this->fleet.emplace_back(aircraft);
 }
 
-void Airline::addAircraft(const std::vector<Aircraft> &aircraft) {
-    for (const auto& it : aircraft)
-        this->addAircraft(it);
-}
-
-const std::vector<Flight> &Airline::getFlights() const {
-    return flights;
-}
 
 bool Airline::operator==(const Airline &rhs) const {
     return name == rhs.name &&
@@ -47,17 +39,11 @@ bool Airline::operator!=(const Airline &rhs) const {
     return !(rhs == *this);
 }
 
-void Airline::addFlight(const std::string &number, time_t start, time_t duration, const Address &source,
-                        const Address &destination, const Aircraft &aircraft) {
-    auto flight = Flight(number, start, duration, source, destination, aircraft);
-    flights.push_back(flight);
-}
-
 void Airline::addFlight(const Flight& flight) {
     flights.push_back(flight);
 }
 
-void Airline::addFlightPassenger(const Flight &flight, std::shared_ptr<Passenger> passenger) {
+void Airline::addFlightPassenger(const Flight &flight, const std::shared_ptr<Passenger>& passenger) {
     auto flightIterator = std::find(flights.begin(), flights.end(), flight);
     if (flightIterator != flights.end())
         flightIterator->addPassenger(passenger);

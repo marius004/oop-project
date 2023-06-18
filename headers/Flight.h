@@ -45,10 +45,6 @@ public:
 
     [[nodiscard]] const std::unordered_set<std::shared_ptr<Passenger>> &getPassengers() const;
 
-    [[nodiscard]] FlightStatus getStatus() const;
-
-    [[nodiscard]] time_t getDuration() const;
-
     [[nodiscard]] time_t getStart() const;
 
     [[nodiscard]] const std::string& getDestinationCity() const;

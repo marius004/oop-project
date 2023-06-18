@@ -37,7 +37,7 @@ public:
 
     void addFlight(const Flight &flight);
 
-    void addFlightPassenger(const Flight &flight, std::shared_ptr<Passenger> passenger);
+    void addFlightPassenger(const Flight &flight, const std::shared_ptr<Passenger>& passenger);
 
     void addFlightCrew(const Flight &flight, const std::shared_ptr<AircraftCrewMember> &member);
 

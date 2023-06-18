@@ -16,10 +16,6 @@ const std::string &Flight::getNumber() const {
     return number;
 }
 
-time_t Flight::getDuration() const {
-    return duration;
-}
-
 std::ostream &operator<<(std::ostream &os, const Flight &flight) {
     os << "Flight{" << "number: " << flight.number << " duration: " << flight.duration << " source: " << flight.source
        << " destination: " << flight.destination << "}";
@@ -54,10 +50,6 @@ void Flight::setStatus(FlightStatus newStatus) {
 
 time_t Flight::getStart() const {
     return start;
-}
-
-FlightStatus Flight::getStatus() const {
-    return status;
 }
 
 Flight::Flight(const Flight &flight)
@@ -131,6 +123,3 @@ Flight::Flight(const Flight &&flight) noexcept :
 const std::string &Flight::getDestinationCity() const {
     return this->destination.getCity();
 }
-
-
-
