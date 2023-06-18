@@ -17,8 +17,6 @@ public:
                            std::vector<std::shared_ptr<Passenger>> passengers) const override;
 
     [[nodiscard]] std::shared_ptr<AircraftCrewMember> clone() const override;
-
-    [[nodiscard]] bool canFly() const override;
 };
 
 #endif //OOP_PILOT_H
