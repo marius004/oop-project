@@ -42,10 +42,15 @@ std::string Pilot::introduce(const std::string& flightNumber, const std::string&
     return ss.str();
 }
 
-void Pilot::prepareForLanding(const std::string& destination, std::vector<std::shared_ptr<Passenger>> passengers) const {
+void Pilot::prepareForLanding(const std::string& destination, std::unordered_set<std::shared_ptr<Passenger>> passengers) const {
     std::cout << getLandingMessage(destination) << "\n";
 
     for (const auto& passenger : passengers)
         if (!passenger->isSeatbeltFastened())
-            std::cout << "Plase fasten your seatbelt " << passenger.get()->getLastName() << "\n";
+            std::cout << "Plase fasten your seatbelt " << passenger->getLastName() << "\n";
+}
+
+std::ostream &operator<<(std::ostream &os, const Pilot &pilot) {
+    os << static_cast<const AircraftCrewMember &>(pilot) << " license: " << pilot.license;
+    return os;
 }

@@ -1,6 +1,7 @@
 #ifndef OOP_PILOT_H
 #define OOP_PILOT_H
 
+#include <ostream>
 #include "../headers/AircraftCrewMember.h"
 
 class Pilot : public AircraftCrewMember {
@@ -14,9 +15,11 @@ public:
     [[nodiscard]] std::string introduce(const std::string& flightNumber, const std::string& city) const override;
 
     void prepareForLanding(const std::string& destination,
-                           std::vector<std::shared_ptr<Passenger>> passengers) const override;
+                           std::unordered_set<std::shared_ptr<Passenger>> passengers) const override;
 
     [[nodiscard]] std::shared_ptr<AircraftCrewMember> clone() const override;
+
+    friend std::ostream &operator<<(std::ostream &os, const Pilot &pilot);
 };
 
 #endif //OOP_PILOT_H

@@ -26,27 +26,32 @@ private:
     Aircraft aircraft;
     FlightStatus status;
 
-    std::vector<std::shared_ptr<Passenger>> passengers;
-    std::vector<std::shared_ptr<AircraftCrewMember>> crew;
+    std::unordered_set<std::shared_ptr<Passenger>> passengers;
+    std::unordered_set<std::shared_ptr<AircraftCrewMember>> crew;
+
+    void deepCopyPointerFields(const Flight& flight);
 
 public:
-    [[nodiscard]] const Address &getDestination() const;
 
     Flight(std::string number, time_t start, time_t duration, Address source, Address destination, Aircraft aircraft);
 
     Flight(const Flight& flight);
 
+    Flight(const Flight&& flight) noexcept;
+
     void setStatus(FlightStatus status);
 
-    [[nodiscard]] const std::vector<std::shared_ptr<AircraftCrewMember>> &getCrew() const;
+    [[nodiscard]] const std::unordered_set<std::shared_ptr<AircraftCrewMember>> &getCrew() const;
 
-    [[nodiscard]] const std::vector<std::shared_ptr<Passenger>> &getPassengers() const;
+    [[nodiscard]] const std::unordered_set<std::shared_ptr<Passenger>> &getPassengers() const;
 
     [[nodiscard]] FlightStatus getStatus() const;
 
     [[nodiscard]] time_t getDuration() const;
 
     [[nodiscard]] time_t getStart() const;
+
+    [[nodiscard]] const std::string& getDestinationCity() const;
 
     [[nodiscard]] time_t getEstimatedLanding() const;
 
@@ -55,8 +60,6 @@ public:
     [[nodiscard]] const Aircraft &getAircraft() const;
 
     void addPassenger(const std::shared_ptr<Passenger>& passenger);
-
-    void deepCopySmartPointers(const Flight& flight);
 
     void addCrewMember(const std::shared_ptr<AircraftCrewMember>& crewMember);
 

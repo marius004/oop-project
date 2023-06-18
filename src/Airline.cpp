@@ -3,6 +3,7 @@
 
 #include "../headers/Airline.h"
 #include "../headers/exceptions/NoFlightPilotException.h"
+#include "../headers/exceptions/InvalidPilotLicenseException.h"
 
 Airline::Airline(std::string name)
     : name(std::move(name)) {}
@@ -89,7 +90,7 @@ void Airline::maintainAircraft(const Aircraft &aircraft, time_t time) {
     iter->maintenance(time);
 }
 
-void Airline::addFlightCrew(const Flight &flight, std::shared_ptr<AircraftCrewMember> member) {
+void Airline::addFlightCrew(const Flight &flight, const std::shared_ptr<AircraftCrewMember>& member) {
     auto flightIterator = std::find(flights.begin(), flights.end(), flight);
     flightIterator->addCrewMember(member);
 }
@@ -113,26 +114,27 @@ void Airline::simulate(time_t time) {
                 auto pilot = getFlightPilot(flight)->clone();
                 std::cout << "The pilot for flight " << flight.getNumber() << " is " << pilot->getName() << "\n";
             } catch (const NoFlightPilotException& exception) {
-                std::cerr << exception.what() << "\n";
-                cancelFlight(flight, 2);
+                std::cerr << exception.what();
+                cancelFlight(flight);
+                continue;
+            } catch (const InvalidPilotLicenseException& exception) {
+                std::cerr << exception.what();
+                cancelFlight(flight);
+                continue;
             }
 
-            for (const auto& crew : flight.getCrew())
-                crew->introduce(flight.getNumber(), flight.getDestination().getCity());
-
+            introduceCrew(flight);
             updateFlightStatus(flight, FlightStatus::FLYING);
         } else if (flight.getEstimatedLanding() - 1 == time) {
-            // prepare for landing
-            for (const auto& crew : flight.getCrew())
-                crew->prepareForLanding(flight.getDestination().getCity(), flight.getPassengers());
+            prepareForLanding(flight);
         }
 
         std::cout << "Flight " << flight.getNumber() << " is still flying\n";
     }
 }
 
-void Airline::cancelFlight(const Flight &flight, int reason) {
-    std::cout << "\n" << reason << " Cancelling flight " << flight.getNumber() << "\n";
+void Airline::cancelFlight(const Flight &flight) {
+    std::cout << "Cancelling flight " << flight.getNumber() << "\n";
     updateFlightStatus(flight, FlightStatus::CANCELLED);
 }
 
@@ -140,7 +142,16 @@ std::shared_ptr<Pilot> Airline::getFlightPilot(const Flight &flight) {
     auto flightIterator = std::find(flights.begin(), flights.end(), flight);
     for (const auto& member : flightIterator->getCrew())
         if (auto pilot = std::dynamic_pointer_cast<Pilot>(member); pilot != nullptr)
-            return std::static_pointer_cast<Pilot>(member);
-
+            return pilot;
     throw NoFlightPilotException(flightIterator->getNumber());
+}
+
+void Airline::introduceCrew(const Flight& flight) {
+    for (const auto& member : flight.getCrew())
+        member->introduce(flight.getNumber(), flight.getDestinationCity());
+}
+
+void Airline::prepareForLanding(const Flight &flight) {
+    for (const auto& crew : flight.getCrew())
+        crew->prepareForLanding(flight.getDestinationCity(), flight.getPassengers());
 }

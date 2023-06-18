@@ -1,5 +1,6 @@
 #include "../headers/exceptions/InvalidArgumentException.h"
 #include "../headers/FlightAttendant.h"
+#include "../headers/FlightEngineer.h"
 #include "../headers/Utils.h"
 #include <cstdlib>
 #include <string>

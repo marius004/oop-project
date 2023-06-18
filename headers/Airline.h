@@ -15,8 +15,11 @@ private:
     std::vector<Aircraft> fleet;
     std::vector<Flight> flights;
 
-    void cancelFlight(const Flight& flight, int reason);
+    void cancelFlight(const Flight& flight);
     std::shared_ptr<Pilot> getFlightPilot(const Flight& flight);
+
+    static void introduceCrew(const Flight& flight);
+    static void prepareForLanding(const Flight& flight);
 
 public:
     explicit Airline(std::string name);
@@ -34,7 +37,7 @@ public:
 
     void addFlightPassenger(const Flight& flight, std::shared_ptr<Passenger> passenger);
 
-    void addFlightCrew(const Flight& flight, std::shared_ptr<AircraftCrewMember> member);
+    void addFlightCrew(const Flight& flight, const std::shared_ptr<AircraftCrewMember>& member);
 
     void updateFlightStatus(const Flight& flight, const FlightStatus& status);
 
