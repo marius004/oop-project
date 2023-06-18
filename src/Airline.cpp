@@ -70,8 +70,8 @@ void Airline::addFlightCrew(const Flight &flight, const std::shared_ptr<Aircraft
     flightIterator->addCrewMember(member);
 }
 
-void Airline::handleFlightsLandingNow(const std::vector<Flight>& flights) {
-    for (const auto& flight : flights) {
+void Airline::handleFlightsLandingNow(const std::vector<Flight>& landingFlights) {
+    for (const auto& flight : landingFlights) {
         std::cout << "Flight " << flight.getNumber() << " has just landed\n";
         updateFlightStatus(flight, FlightStatus::LANDED);
     }
@@ -82,8 +82,8 @@ void Airline::handleFlightsPreparingForLanding(const std::vector<Flight>& flight
         prepareForLanding(flight);
 }
 
-void Airline::handleFlightsTakingOff(time_t time, const std::vector<Flight>& flights) {
-    for (const auto& flight : flights) {
+void Airline::handleFlightsTakingOff(time_t time, const std::vector<Flight>& takingOffFlights) {
+    for (const auto& flight : takingOffFlights) {
         if (!flight.getAircraft().canFly()) {
             std::cout << "Performing maintenance for aircraft " << flight.getAircraft() << "\n";
             maintainAircraft(flight.getAircraft(), time);

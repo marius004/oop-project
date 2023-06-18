@@ -60,9 +60,9 @@ public:
 
     virtual ~Airline() = default;
 
-    void handleFlightsLandingNow(const std::vector<Flight> &flights);
+    void handleFlightsLandingNow(const std::vector<Flight> &lanfingFlights);
 
-    void handleFlightsPreparingForLanding(const std::vector<Flight> &flights);
+    static void handleFlightsPreparingForLanding(const std::vector<Flight> &flights);
 
     void handleFlightsTakingOff(time_t time, const std::vector<Flight> &flights);
 };
