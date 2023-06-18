@@ -1,6 +1,5 @@
 #include "../headers/exceptions/InvalidArgumentException.h"
 #include "../headers/FlightAttendant.h"
-#include "../headers/FlightEngineer.h"
 #include "../headers/Utils.h"
 #include <cstdlib>
 #include <string>
@@ -34,7 +33,7 @@ std::vector<Flight> Utils::buildFlights(int aircraftCount, int flightCount, std:
     while (count < flightCount) {
         int toAdd = rand() % aircraftCount;
         for (int i = 0;i < toAdd && count < flightCount;++i) {
-            flights.push_back(Flight(Utils::generateFlightNumber(), time, rand() % Utils::MAX_FLIGHT_DURATION, addressFactory->create(), addressFactory->create(),  aircraft[aircraftIndex]));
+            flights.emplace_back(Utils::generateFlightNumber(), time, rand() % Utils::MAX_FLIGHT_DURATION, addressFactory->create(), addressFactory->create(),  aircraft[aircraftIndex]);
             aircraftIndex = (aircraftIndex + 1) % aircraftCount;
             count++;
         }
