@@ -13,17 +13,14 @@ private:
     int year;
     int capacity;
     std::time_t lastRevision;
-
 public:
     Aircraft(std::string manufacturer, std::string model, int year, int capacity, time_t lastRevision);
 
-    [[nodiscard]]
-    int getCapacity() const;
+    [[nodiscard]] int getCapacity() const;
+
+    [[nodiscard]] bool canFly() const;
 
     void maintenance(time_t time);
-
-    [[nodiscard]]
-    bool canFly() const;
 
     bool operator==(const Aircraft &rhs) const;
 

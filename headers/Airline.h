@@ -30,6 +30,8 @@ public:
     void addFlight(const std::string& number,time_t start, time_t duration, const Address& source,
                    const Address& destination, const Aircraft& aircraft);
 
+    void addFlight(const Flight& flight);
+
     void addFlightPassenger(const Flight& flight, std::shared_ptr<Passenger> passenger);
 
     void addFlightCrew(const Flight& flight, std::shared_ptr<AircraftCrewMember> member);

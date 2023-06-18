@@ -14,7 +14,7 @@ public:
 
     [[nodiscard]] std::shared_ptr<AircraftCrewMember> clone() const override;
 
-    bool canFly() const override;
+    [[nodiscard]] bool canFly() const override;
 };
 
 #endif //OOP_FLIGHTATTENDANT_H

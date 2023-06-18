@@ -52,6 +52,10 @@ void Airline::addFlight(const std::string &number, time_t start, time_t duration
     flights.push_back(flight);
 }
 
+void Airline::addFlight(const Flight& flight) {
+    flights.push_back(flight);
+}
+
 void Airline::addFlightPassenger(const Flight &flight, std::shared_ptr<Passenger> passenger) {
     auto flightIterator = std::find(flights.begin(), flights.end(), flight);
     flightIterator->addPassenger(passenger);
@@ -107,9 +111,9 @@ void Airline::simulate(time_t time) {
             try {
                 // cloning just to get rid of the warning
                 auto pilot = getFlightPilot(flight)->clone();
-                std::cout << "The pilot for flight " << flight.getNumber() << " is Marius";
+                std::cout << "The pilot for flight " << flight.getNumber() << " is " << pilot->getName() << "\n";
             } catch (const NoFlightPilotException& exception) {
-                std::cerr << exception.what();
+                std::cerr << exception.what() << "\n";
                 cancelFlight(flight, 2);
             }
 
@@ -135,8 +139,8 @@ void Airline::cancelFlight(const Flight &flight, int reason) {
 std::shared_ptr<Pilot> Airline::getFlightPilot(const Flight &flight) {
     auto flightIterator = std::find(flights.begin(), flights.end(), flight);
     for (const auto& member : flightIterator->getCrew())
-        if (member->canFly())
-            return std::dynamic_pointer_cast<Pilot>(member);
+        if (auto pilot = std::dynamic_pointer_cast<Pilot>(member); pilot != nullptr)
+            return std::static_pointer_cast<Pilot>(member);
 
     throw NoFlightPilotException(flightIterator->getNumber());
 }

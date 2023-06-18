@@ -49,8 +49,3 @@ void Pilot::prepareForLanding(const std::string& destination, std::vector<std::s
         if (!passenger->isSeatbeltFastened())
             std::cout << "Plase fasten your seatbelt " << passenger.get()->getLastName() << "\n";
 }
-
-
-bool Pilot::canFly() const {
-    return license != "";
-}

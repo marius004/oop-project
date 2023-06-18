@@ -6,7 +6,6 @@
 
 class Address {
 private:
-
     std::string street;
     std::string city;
     std::string country;
@@ -14,7 +13,7 @@ public:
     [[maybe_unused]]
     Address(std::string  street, std::string city, std::string country);
 
-    const std::string &getCity() const;
+    [[nodiscard]] const std::string &getCity() const;
 
     bool operator==(const Address &rhs) const;
     bool operator!=(const Address &rhs) const;
